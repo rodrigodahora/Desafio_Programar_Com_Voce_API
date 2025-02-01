@@ -1,19 +1,11 @@
-import Express from "express";
+import express from "express";
+import { router } from "./routers/routes";
 
-interface IProps {
-    req: Request,
-    res: Response
-}
+const app = express();
 
-const app = Express();
-app.use(Express.json());
+app.use(express.json());
+app.use(router);
 
-const PORT = 8000;
-
-app.listen(PORT, () => {
-    console.log(`Server is running ${PORT}`)
-});
-
-app.get('/', (req, res): IProps => {
-    return res.send({ message: 'Hello World' });
+app.listen(process.env.PORT, () => {
+    console.log(`Server is running on port ${process.env.PORT}`);
 })

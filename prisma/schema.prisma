@@ -47,6 +47,7 @@ model Product {
   description   String
   price         Float
   stockQuantity Int
+  image         String
   createdAt     DateTime    @default(now())
   orderItems    OrderItem[]
 

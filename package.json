@@ -9,7 +9,7 @@
     "dev": "ts-node-dev --respawn --transpile-only --files ./src/server.ts",
     "nodemon": "nodemon ./src/server.ts",
     "build": "rm -rf ./dist && tsc",
-    "start": "node ./dist/index.js"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",

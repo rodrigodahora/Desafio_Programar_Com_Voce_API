@@ -1,6 +1,7 @@
-import { Request, Response } from "express";
+import { request, Request, Response } from "express";
 import { prisma } from "../database";
 import { hash } from "bcrypt";
+import { AuthMiddleware } from "../middlewares/auth";
 
 export class UserController {
     async index(request: Request, response: Response) {
@@ -40,4 +41,50 @@ export class UserController {
         }
 
     }
+
+    async verifyUser(request: Request, response: Response) {
+        const { name, email } = request.body;
+        const userId = request.userId;
+
+        if (!userId || isNaN(Number(userId))) {
+            return response.status(400).json({
+                message: "Invalid or missing user ID"
+            });
+        }
+
+        const userIdNumber = Number(userId);
+
+        try {
+            const user = await prisma.user.findUnique({
+                where: {
+                    id: userIdNumber
+                },
+            });
+
+            if (!user) {
+                return response.status(400).json({
+                    message: "User not found"
+                })
+            };
+
+            if (user.name !== name || user.email !== email) {
+                return response.status(200).json({
+                    message: "Name or Email does not match!"
+                })
+            };
+
+            return response.status(200).json({ message: "User verified successfully!" })
+
+
+
+        } catch (error) {
+            console.error(error);
+            return response.status(500).json({
+                error: true,
+                message: "Error verifying user data."
+            })
+
+        };
+    }
 }
+

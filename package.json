@@ -2,6 +2,9 @@
   "name": "desafio_programar_com_voce_api",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "18"
+  },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only --files ./src/server.ts",
     "nodemon": "nodemon ./src/server.ts",
